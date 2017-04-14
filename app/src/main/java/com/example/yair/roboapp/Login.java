@@ -28,7 +28,8 @@ public class Login extends AppCompatActivity {
                 String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
                 String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
 
-                String url="http:/www.google.com";
+                String url="http://www.google.com";
+
 
 
             }
