@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
-    RequestQueue queue = Volley.newRequestQueue(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,5 +35,27 @@ public class Login extends AppCompatActivity {
 
             }
         });
+        String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://www.google.com";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Toast.makeText(Login.this,"Response is: "+ response.substring(0,500),Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Login.this,"NOP!"+error,Toast.LENGTH_LONG).show();
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 }
