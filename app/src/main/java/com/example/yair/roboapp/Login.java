@@ -7,7 +7,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 public class Login extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +27,10 @@ public class Login extends AppCompatActivity {
                 String ip = ((EditText) findViewById(R.id.ipbox)).getText().toString();
                 String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
                 String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
+
+                String url="http:/www.google.com";
+
+
             }
         });
     }
