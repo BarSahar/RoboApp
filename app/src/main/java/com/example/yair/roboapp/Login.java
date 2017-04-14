@@ -6,17 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
 public class Login extends AppCompatActivity {
 
-
+    RequestQueue queue = Volley.newRequestQueue(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +31,6 @@ public class Login extends AppCompatActivity {
                 String ip = ((EditText) findViewById(R.id.ipbox)).getText().toString();
                 String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
                 String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
-
-                String url="http://www.google.com";
-
 
 
             }
