@@ -22,7 +22,6 @@ public class CameraActivity extends AppCompatActivity {
         final String ip=getIntent().getStringExtra("Ip");
 
         findViewById(R.id.Lbutton).setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
 
@@ -35,7 +34,7 @@ public class CameraActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
 
-                            Toast.makeText(CameraActivity.this, "=)", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
 
                             }
                         }, new Response.ErrorListener() {
@@ -46,12 +45,62 @@ public class CameraActivity extends AppCompatActivity {
                 });
                 queue.add(stringRequest);
 
+            }
+        });
+        findViewById(R.id.Fbutton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
 
+                Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
+                RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
+                String req="http://"+ip+":8080/Forward";
 
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
 
+                                Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                    }
+                });
+                queue.add(stringRequest);
 
             }
         });
+        findViewById(R.id.Rbutton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
+                RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
+                String req="http://"+ip+":8080/Right";
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                    }
+                });
+                queue.add(stringRequest);
+
+            }
+        });
+
+
 
     }
 }
