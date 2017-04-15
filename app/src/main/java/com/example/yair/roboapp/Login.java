@@ -38,7 +38,6 @@ public class Login extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(Login.this);
                     String url = "http://" + ip + ":8080/Login?user=" + username + "&pass=" + password;
 
-                    // Request a string response from the provided URL.
 
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                             new Response.Listener<String>() {
