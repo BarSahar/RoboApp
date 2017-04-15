@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import android.content.Intent;
 
 import org.json.JSONObject;
 
@@ -45,10 +46,12 @@ public class Login extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     if (response.equals("ok")) {
 
-                                        Toast.makeText(Login.this, "ok", Toast.LENGTH_LONG).show();
+                                        Intent intent=new Intent(Login.this,CameraActivity.class);
+                                        startActivity(intent);
+
                                     }
                                     else
-                                        Toast.makeText(Login.this, "not ok", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Login.this, "UserName or Password or ip is kaka", Toast.LENGTH_LONG).show();
 
 
                                 }
