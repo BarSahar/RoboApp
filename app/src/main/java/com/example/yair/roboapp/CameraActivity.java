@@ -40,7 +40,7 @@ public class CameraActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                        Toast.makeText(CameraActivity.this, "Bad Api...: " + error, Toast.LENGTH_LONG).show();
                     }
                 });
                 queue.add(stringRequest);
