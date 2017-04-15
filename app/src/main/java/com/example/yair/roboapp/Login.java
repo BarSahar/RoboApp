@@ -25,55 +25,44 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
-        findViewById(R.id.login).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ip = ((EditText) findViewById(R.id.ipbox)).getText().toString();
-                String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
-                String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
 
-                // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(Login.this);
-                String url = "http://"+ip + ":8080/Login?user="+username+"&pass="+password;
-                url = "10.0.0.5:8080/Login?user=admin&pass=admin";
+        try {
+            findViewById(R.id.login).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String ip = ((EditText) findViewById(R.id.ipbox)).getText().toString();
+                    String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
+                    String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
 
-                // Request a string response from the provided URL.
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                Toast.makeText(Login.this,"Response is: "+ response.substring(0,500),Toast.LENGTH_LONG).show();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Login.this,"NOP!"+error,Toast.LENGTH_LONG).show();
-                    }
-                });
-                queue.add(stringRequest);
+                    // Instantiate the RequestQueue.
+                    RequestQueue queue = Volley.newRequestQueue(Login.this);
+                    String url = "http://" + ip + ":8080/Login?user=" + username + "&pass=" + password;
 
-            }
-        });
-/*
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://www.google.com";
+                    // Request a string response from the provided URL.
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Toast.makeText(Login.this,"Response is: "+ response.substring(0,500),Toast.LENGTH_LONG).show();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Login.this,"NOP!"+error,Toast.LENGTH_LONG).show();
-            }
-        });
-        queue.add(stringRequest);*/
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    Toast.makeText(Login.this, "Response is: " + response, Toast.LENGTH_LONG).show();
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(Login.this, "NOP!" + error, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    queue.add(stringRequest);
+
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(Login.this, "NOP!" + e.toString(), Toast.LENGTH_LONG).show();
+
+
+        }
+
+
     }
 }
