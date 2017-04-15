@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
                     String ip = ((EditText) findViewById(R.id.ipbox)).getText().toString();
                     String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
                     String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
-
+                    ip="79.178.101.120";
                     // Instantiate the RequestQueue.
                     RequestQueue queue = Volley.newRequestQueue(Login.this);
                     String url = "http://" + ip + ":8080/Login?user=" + username + "&pass=" + password;
@@ -44,8 +44,14 @@ public class Login extends AppCompatActivity {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    // Display the first 500 characters of the response string.
-                                    Toast.makeText(Login.this, "Response is: " + response, Toast.LENGTH_LONG).show();
+                                    if (response.equals("ok")) {
+
+                                        Toast.makeText(Login.this, "ok", Toast.LENGTH_LONG).show();
+                                    }
+                                    else
+                                        Toast.makeText(Login.this, "not ok", Toast.LENGTH_LONG).show();
+
+
                                 }
                             }, new Response.ErrorListener() {
                         @Override
