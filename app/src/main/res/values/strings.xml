@@ -13,4 +13,38 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="ok">OK</string>
+    <string name="camera">Camera</string>
+    <string name="default_multicast_address">224.0.0.1</string>
+    <string name="use_stream_height">use stream height</string>
+    <string name="use_stream_width">use stream width</string>
+    <string name="dont_set">don\'t set</string>
+    <string name="error_no_address">You must enter an address.</string>
+    <string name="error_bad_multicast_address">The multicast address must be between 224.0.0.0 and 239.0.0.0</string>
+    <string name="error_no_port">You must enter a port number.</string>
+    <string name="error_bad_width">The width must be a positive number or empty.</string>
+    <string name="error_bad_bps">The bits per second must be a positive number or empty.</string>
+    <string name="error_bad_fps">The frames per second must be a positive number or empty.</string>
+    <string name="error_bad_height">The height must be a positive number or empty.</string>
+    <string name="error_bad_port" formatted="false">The port number must be between %d and %d.</string>
+    <string name="warning_multicast_address">The multicast address should be between 239.0.0.0 and 239.255.255.255.</string>
+    <string name="error_bad_address">The address is not a valid URL.</string>
+    <string name="connection_type">Connection Type</string>
+    <string-array name="connection_types">
+        <item>@string/tcp_ip</item>
+        <item>@string/http</item>
+        <item>@string/multicast</item>
+    </string-array>
+    <string name="tcp_ip">TCP/IP</string>
+    <string name="http">HTTP</string>
+    <string name="multicast">Multicast</string>
+    <string name="address">Address</string>
+    <string name="port">Port</string>
+    <string name="use_default_hint">use default</string>
+    <string name="width">Width</string>
+    <string name="height">Height</string>
+    <string name="frames_per_second">Frames per second</string>
+    <string name="bits_per_second">Bits per second</string>
+    <string name="settings_settings">settings</string>
+    <string name="settings_cameras">cameras</string>
 </resources>
