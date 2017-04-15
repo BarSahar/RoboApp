@@ -20,11 +20,11 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         final String ip=getIntent().getStringExtra("Ip");
+        //TEST
 
         findViewById(R.id.Lbutton).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
                 RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
                 String req="http://"+ip+":8080/Left";
