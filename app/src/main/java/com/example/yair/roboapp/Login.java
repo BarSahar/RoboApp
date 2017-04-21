@@ -15,6 +15,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.yair.roboapp.classes.Utils;
+
 import android.content.Intent;
 
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
-
+        Utils.loadData();
         try {
             findViewById(R.id.login).setOnClickListener(new OnClickListener() {
                 @Override

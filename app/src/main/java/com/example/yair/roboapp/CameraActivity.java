@@ -1,10 +1,12 @@
 package com.example.yair.roboapp;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,14 +16,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.yair.roboapp.classes.Source;
 import com.example.yair.roboapp.classes.Utils;
 import com.example.yair.roboapp.classes.Camera;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity  extends AppCompatActivity implements VideoFragment.OnFadeListener{
     public final static String CAMERA = "camera";
-    private final static String TAG = "CameraActivity";
+    private final static String TAG = "VideoActivity";
     private Camera camera;
-    private CameraFragment cameraFragment;
+    private FrameLayout frameLayout;
+    private VideoFragment videoFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,17 +111,68 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+        //Log.d(TAG, "onCreate");
 
         // load the settings and cameras
         //Utils.loadData();
 
         // get the camera object
-        //TODO: set a new camera object
-        //Bundle data = getIntent().getExtras();
-        //camera = data.getParcelable(CAMERA);
+        camera = new Camera(Source.ConnectionType.RawTcpIp,"","79.178.101.120",8080);
 
-        // set the source fragment
-        //cameraFragment = (CameraFragment)getSupportFragmentManager().findFragmentById(R.id.camera_source);
-        //cameraFragment.configure(camera.source, true);
+        //camera.name = "camera";
+
+        // get the frame layout, handle system visibility changes
+        frameLayout = (FrameLayout) findViewById(R.id.video);
+        frameLayout.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener()
+        {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility)
+            {
+                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0)
+                {
+                    videoFragment.startFadeIn();
+                }
+            }
+        });
+
+        // set full screen layout
+        int visibility = frameLayout.getSystemUiVisibility();
+        visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+        frameLayout.setSystemUiVisibility(visibility);
+
+        // create the video fragment
+        videoFragment = videoFragment.newInstance(camera, true);
+        FragmentTransaction fragTran = getSupportFragmentManager().beginTransaction();
+        fragTran.add(R.id.video, videoFragment);
+        fragTran.commit();
+    }
+
+    //******************************************************************************
+    // onStartFadeIn
+    //******************************************************************************
+    @Override
+    public void onStartFadeIn()
+    {
+    }
+
+    //******************************************************************************
+    // onStartFadeOut
+    //******************************************************************************
+    @Override
+    public void onStartFadeOut()
+    {
+        // hide the status and navigation bars
+        int visibility = frameLayout.getSystemUiVisibility();
+        visibility |= View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        frameLayout.setSystemUiVisibility(visibility);
+    }
+
+    //******************************************************************************
+    // onRequestPermissionsResult
+    //******************************************************************************
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        videoFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

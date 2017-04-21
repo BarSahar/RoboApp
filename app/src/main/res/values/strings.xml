@@ -47,4 +47,8 @@
     <string name="bits_per_second">Bits per second</string>
     <string name="settings_settings">settings</string>
     <string name="settings_cameras">cameras</string>
+    <string name="initializing_video">Initializing video...</string>
+    <string name="image_saved">Image saved.</string>
+    <string name="error_lost_connection">Lost the connection to the camera.</string>
+    <string name="error_couldnt_connect">Couldn\'t connect to the camera.</string>
 </resources>
