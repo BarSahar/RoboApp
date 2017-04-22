@@ -70,8 +70,6 @@ public class Login extends AppCompatActivity {
             });
         } catch (Exception e) {
             Toast.makeText(Login.this, "NOP!" + e.toString(), Toast.LENGTH_LONG).show();
-
-
         }
 
 
