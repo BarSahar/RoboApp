@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
-    public String ip;
+    public static String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
