@@ -35,13 +35,10 @@ public class PatrolActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patrol);
-
-
-
-
         RequestQueue queue = Volley.newRequestQueue(PatrolActivity.this);
         serverIp = Login.ip;
         serverIp = "79.178.101.120";
+
 
         String url = "http://" + serverIp + ":8080/Map";
 
@@ -68,22 +65,14 @@ public class PatrolActivity extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
-        findViewById(R.id.testbtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         findViewById(R.id.mapbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PatrolActivity.this, strMap, Toast.LENGTH_LONG).show();
+                finish();
+                startActivity(getIntent());
             }
         });
-
-
-
-
 
 
     }
@@ -94,20 +83,22 @@ public class PatrolActivity extends AppCompatActivity {
         int cols = Integer.parseInt(strMap.substring(3, 5));
         this.rows=rows;
         this.cols=cols;
-
+        int value;
         matrixMap = new int[rows][cols];
-        String strrow;
+        String strMatrix;
 
-        strrow = strMap.substring(strMap.indexOf("?") + 1, strMap.length() - 1);
+        strMatrix = strMap.substring(strMap.indexOf("?") + 1, strMap.length() - 1)+":";
+        String rowStr;
 
         for (int i = 0; i < rows; i++) {
+            rowStr=strMatrix.substring(0,strMatrix.indexOf(":"));
+            strMatrix=strMatrix.substring(strMatrix.indexOf(":")+1,strMatrix.length());
             for (int j = 0; j < cols; j++) {
-                if (strrow.substring(i * cols + j, i * cols + j + 1).equals(":"))
-                    continue;
-                int value = Integer.parseInt(strrow.substring(i * cols + j, i * cols + j + 1));
+                value = Integer.parseInt(rowStr.substring(j,j+1));
                 matrixMap[i][j] = value;
             }
         }
+
     }
 }
 
@@ -141,31 +132,58 @@ class DrawView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int value;
+        int redCount=0;
 
-
-        for(int i=0;i<rows;i++)
+        for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++)
             {
+
+//                "0"=unexplored:
+//                "1"=block:
+//                "2"=clear
+
+//                011111111111110
+//                122222222222221
+//                122222222222221
+//                122222222222221
+//                122222222222221
+//                122221222222221
+//                122222222222221
+//                122222222222221
+//                122222222222221
+//                011111111111110
+
                 value=map[i][j];
-                if (value==0)
-                    paint.setColor(Color.BLACK);
+
+                if (value==0){
+                    paint.setColor(Color.RED);
+                    redCount++;
+                }
                 if(value==1)
-                    paint.setColor(Color.BLUE);
-                else paint.setColor(Color.RED);
+                    paint.setColor(Color.BLACK);
+                if(value==2)
+                    paint.setColor(Color.WHITE);
 
 
                 float Xratio=width/rows;
                 float Yratio=height/cols;
 
-                paint.setColor(Color.RED);
+                float Left=(float)(x+i*Xratio);
+                float Top=(float)(y+j*Yratio);
+                float Right=(float)(10+x+i*Xratio);
 
-                canvas.drawPoint(x+i*100,y+j*100,paint);
+                float Buttom=(float)(10+y+j*Yratio);
+
 
                 canvas.drawOval((float)(x+i*Xratio),(float)(y+j*Yratio),(float)(10+x+i*Xratio),(float)(10+y+j*Yratio),paint);
 
+            }}
 
-            }
+
+        redCount=redCount+0;
+
 
 
     }
 }
+
