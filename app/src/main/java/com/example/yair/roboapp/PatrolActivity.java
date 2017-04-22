@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -23,12 +24,15 @@ import com.android.volley.toolbox.Volley;
 
 public class PatrolActivity extends AppCompatActivity {
     DrawView drawView;
+    DrawPoint drawPoint;
     public LinearLayout myBox;
     public String strMap;
     public String serverIp;
     public int[][] matrixMap;
     public int rows;
     public int cols;
+    public static ViewGroup myLayout;
+
 
 
     @Override
@@ -51,10 +55,8 @@ public class PatrolActivity extends AppCompatActivity {
                         myBox = (LinearLayout) findViewById(R.id.my);
                         drawView = new DrawView(PatrolActivity.this, myBox,matrixMap,rows,cols);
                         drawView.setBackgroundColor(Color.WHITE);
-                        ViewGroup myLayout = (ViewGroup) findViewById(R.id.my);
-
+                        myLayout = (ViewGroup) findViewById(R.id.my);
                         myLayout.addView(drawView);
-
 
                     }
                 }, new Response.ErrorListener() {
@@ -65,12 +67,27 @@ public class PatrolActivity extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
-
         findViewById(R.id.mapbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 startActivity(getIntent());
+            }
+        });
+
+        findViewById(R.id.my).setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Toast.makeText(PatrolActivity.this, "X:"+event.getX()+"\n"+"Y: "+event.getY(), Toast.LENGTH_SHORT).show();
+                drawPoint=new DrawPoint(PatrolActivity.this,event.getX(),event.getY());
+
+                drawView.setBackgroundColor(Color.RED);
+
+                myLayout.addView(drawPoint);
+
+
+                return true;
             }
         });
 
@@ -190,6 +207,28 @@ class DrawView extends View {
                 }
 
             }}
+
+    }
+}
+
+class DrawPoint extends View{
+
+    float  x;
+    float y;
+    Paint paint = new Paint();
+
+    public DrawPoint(Context context,float x,float y) {
+        super(context);
+        this.x=x;
+        this.y=y;
+    }
+
+    @Override
+    public void onDraw(Canvas canvas){
+
+        paint.setColor(Color.BLACK);
+        canvas.drawOval((float)(x),(float)(y),(float)(10+x),(float)(10+y),paint);
+        x=x+0;
 
     }
 }
