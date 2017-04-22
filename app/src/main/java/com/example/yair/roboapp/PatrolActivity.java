@@ -132,32 +132,15 @@ class DrawView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int value;
-        int redCount=0;
 
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++)
             {
 
-//                "0"=unexplored:
-//                "1"=block:
-//                "2"=clear
-
-//                011111111111110
-//                122222222222221
-//                122222222222221
-//                122222222222221
-//                122222222222221
-//                122221222222221
-//                122222222222221
-//                122222222222221
-//                122222222222221
-//                011111111111110
-
                 value=map[i][j];
 
                 if (value==0){
                     paint.setColor(Color.RED);
-                    redCount++;
                 }
                 if(value==1)
                     paint.setColor(Color.BLACK);
@@ -169,20 +152,44 @@ class DrawView extends View {
                 float Yratio=height/cols;
 
                 float Left=(float)(x+i*Xratio);
-                float Top=(float)(y+j*Yratio);
                 float Right=(float)(10+x+i*Xratio);
 
+                float Top=(float)(y+j*Yratio);
                 float Buttom=(float)(10+y+j*Yratio);
-
 
                 canvas.drawOval((float)(x+i*Xratio),(float)(y+j*Yratio),(float)(10+x+i*Xratio),(float)(10+y+j*Yratio),paint);
 
+                int rightNeighbor=j+1;
+                int buttomNeighbor=i+1;
+
+                if(value==1){
+                    if(rightNeighbor<cols)
+                    {
+                        if (map[i][rightNeighbor]==1) {
+                            paint.setColor(Color.BLACK);
+                            for(int k=0;k<11;k++)
+                            {
+                                canvas.drawOval((float)(x+i*Xratio),(float)(y+j*Yratio),(float)(10+x+i*Xratio),(float)(k*8+y+j*Yratio),paint);
+                            }
+
+                        }
+                    }
+                    if(buttomNeighbor<rows)
+                    {
+                        if(map[buttomNeighbor][j]==1)
+                        {
+
+                            paint.setColor(Color.BLACK);
+                            for(int k=0;k<11;k++)
+                            {
+                                canvas.drawOval((float)(x+i*Xratio),(float)(y+j*Yratio),(float)(k*15+x+i*Xratio),(float)(10+y+j*Yratio),paint);
+                            }
+                        }
+                    }
+
+                }
+
             }}
-
-
-        redCount=redCount+0;
-
-
 
     }
 }
