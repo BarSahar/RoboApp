@@ -26,8 +26,10 @@
         <activity android:name=".CameraActivity" />
         <activity android:name=".AboutActivity"/>
 
-        <activity android:name=".PatrolActivity"/>
-        <activity android:name=".PhotoActivity" >
+
+
+        <activity android:name=".PhotoActivity" />
+        <activity android:name=".PatrolActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

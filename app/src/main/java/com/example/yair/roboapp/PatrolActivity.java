@@ -23,55 +23,36 @@ import com.android.volley.toolbox.Volley;
 
 
 public class PatrolActivity extends AppCompatActivity {
-    DrawView drawView;
-    DrawPoint drawPoint;
+    public DrawView drawView;
     public LinearLayout myBox;
     public String strMap;
     public String serverIp;
     public int[][] matrixMap;
     public int rows;
     public int cols;
-    public static ViewGroup myLayout;
 
+    public int Xratio;
+    public int Yratio;
+
+    public static ViewGroup myLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patrol);
-        RequestQueue queue = Volley.newRequestQueue(PatrolActivity.this);
         serverIp = Login.ip;
         serverIp = "79.178.101.120";
 
-
         String url = "http://" + serverIp + ":8080/Map";
+        get(url);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        strMap = response.toString();
-                        parseMap();
-                        myBox = (LinearLayout) findViewById(R.id.my);
-                        drawView = new DrawView(PatrolActivity.this, myBox,matrixMap,rows,cols);
-                        drawView.setBackgroundColor(Color.WHITE);
-                        myLayout = (ViewGroup) findViewById(R.id.my);
-                        myLayout.addView(drawView);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
-            }
-        });
-        queue.add(stringRequest);
 
         findViewById(R.id.mapbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                startActivity(getIntent());
+                String url = "http://" + serverIp + ":8080/Map";
+                drawMap();
             }
         });
 
@@ -80,17 +61,24 @@ public class PatrolActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
 
                 Toast.makeText(PatrolActivity.this, "X:"+event.getX()+"\n"+"Y: "+event.getY(), Toast.LENGTH_SHORT).show();
-                drawPoint=new DrawPoint(PatrolActivity.this,event.getX(),event.getY());
+                int clickX=(int)(event.getX());
+                int clickY=(int)(event.getY());
+                myBox = (LinearLayout) findViewById(R.id.my);
+                int width = myBox.getWidth();
+                int height = myBox.getHeight();
 
-                drawView.setBackgroundColor(Color.RED);
+                int xCell=(int)(((PatrolActivity.this.rows*clickX)/width)+0.5);
+                int yCell=(int)(((PatrolActivity.this.cols*clickY)/height)+0.5);
 
-                myLayout.addView(drawPoint);
+                xCell=xCell%rows;
+                yCell=yCell%cols;
 
+                matrixMap[xCell][yCell]=0;
+                drawMap();
 
                 return true;
             }
         });
-
 
     }
 
@@ -117,7 +105,45 @@ public class PatrolActivity extends AppCompatActivity {
         }
 
     }
+
+    public void get(String url) {
+        RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        strMap = response.toString();
+                        parseMap();
+                        Toast.makeText(PatrolActivity.this, "Fetched!" , Toast.LENGTH_LONG).show();
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(stringRequest);
+
+    }
+
+    public void drawMap(){
+        myBox = (LinearLayout) findViewById(R.id.my);
+        drawView = new DrawView(PatrolActivity.this, myBox,matrixMap,rows,cols);
+        drawView.setBackgroundColor(Color.WHITE);
+        myLayout = (ViewGroup) findViewById(R.id.my);
+
+        myLayout.removeAllViews();
+        myLayout.refreshDrawableState();
+
+        myLayout.addView(drawView);
+
+
+
+    }
 }
+
 
 class DrawView extends View {
     Paint paint = new Paint();
@@ -126,6 +152,9 @@ class DrawView extends View {
     public int y;
     public int width;
     public int height;
+
+    public int Xratio;
+    public int Yratio;
 
     public int[][]map;
     public int rows;
@@ -211,25 +240,5 @@ class DrawView extends View {
     }
 }
 
-class DrawPoint extends View{
 
-    float  x;
-    float y;
-    Paint paint = new Paint();
-
-    public DrawPoint(Context context,float x,float y) {
-        super(context);
-        this.x=x;
-        this.y=y;
-    }
-
-    @Override
-    public void onDraw(Canvas canvas){
-
-        paint.setColor(Color.BLACK);
-        canvas.drawOval((float)(x),(float)(y),(float)(10+x),(float)(10+y),paint);
-        x=x+0;
-
-    }
-}
 
