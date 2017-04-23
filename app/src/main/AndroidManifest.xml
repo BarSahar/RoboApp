@@ -21,22 +21,16 @@
         <activity
             android:name=".Login"
             android:label="RoboApp">
-
         </activity>
         <activity android:name=".CameraActivity" />
         <activity android:name=".AboutActivity"/>
-
-
-
-        <activity android:name=".PhotoActivity" />
-        <activity android:name=".PatrolActivity">
-
+        <activity android:name=".PhotoActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
+        </activity>
+        <activity android:name=".PatrolActivity">
         </activity>
     </application>
 
