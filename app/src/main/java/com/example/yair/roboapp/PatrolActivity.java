@@ -28,6 +28,9 @@ public class PatrolActivity extends AppCompatActivity {
     public String strMap;
     public String serverIp;
     public int[][] matrixMap;
+
+    public int pointsFalg=0;
+    public clickPoint[] clickpoints;
     public int rows;
     public int cols;
 
@@ -56,11 +59,27 @@ public class PatrolActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.clearbtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i=0;i<pointsFalg;i++)
+                {
+                    int x= clickpoints[i].x;
+                    int y= clickpoints[i].y;
+                    matrixMap[x][y]=2;
+                }
+
+                pointsFalg=0;
+                drawMap();
+
+
+            }
+        });
+
         findViewById(R.id.my).setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                Toast.makeText(PatrolActivity.this, "X:"+event.getX()+"\n"+"Y: "+event.getY(), Toast.LENGTH_SHORT).show();
                 int clickX=(int)(event.getX());
                 int clickY=(int)(event.getY());
                 myBox = (LinearLayout) findViewById(R.id.my);
@@ -72,6 +91,8 @@ public class PatrolActivity extends AppCompatActivity {
 
                 xCell=xCell%rows;
                 yCell=yCell%cols;
+                clickpoints[pointsFalg]=new clickPoint(xCell,yCell);
+                pointsFalg++;
 
                 matrixMap[xCell][yCell]=0;
                 drawMap();
@@ -90,6 +111,7 @@ public class PatrolActivity extends AppCompatActivity {
         this.cols=cols;
         int value;
         matrixMap = new int[rows][cols];
+        clickpoints=new clickPoint[rows*cols];
         String strMatrix;
 
         strMatrix = strMap.substring(strMap.indexOf("?") + 1, strMap.length() - 1)+":";
@@ -238,6 +260,20 @@ class DrawView extends View {
             }}
 
     }
+}
+
+
+class clickPoint{
+
+    public int x;
+    public int y;
+
+    public clickPoint(int x,int y)
+    {
+        this.x=x;
+        this.y=y;
+    }
+
 }
 
 
