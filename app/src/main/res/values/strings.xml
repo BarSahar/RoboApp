@@ -51,4 +51,8 @@
     <string name="image_saved">Image saved.</string>
     <string name="error_lost_connection">Lost the connection to the camera.</string>
     <string name="error_couldnt_connect">Couldn\'t connect to the camera.</string>
+    <string name="about_contact">about/contact</string>
+    <string name="live_camera">Live Camera</string>
+    <string name="patrol_setup">Patrol Setup</string>
+    <string name="photos_from_patrol">Photos from patrol</string>
 </resources>
