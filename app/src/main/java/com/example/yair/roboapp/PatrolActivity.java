@@ -1,11 +1,9 @@
 package com.example.yair.roboapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -44,7 +42,7 @@ public class PatrolActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patrol);
-        serverIp = Login.ip;
+        serverIp = LoginActivity.ip;
         serverIp = "79.178.101.120";
 
         String url = "http://" + serverIp + ":8080/Map";

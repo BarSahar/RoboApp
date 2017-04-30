@@ -1,6 +1,5 @@
 package com.example.yair.roboapp;
 
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,16 +11,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.yair.roboapp.classes.Utils;
 
 import android.content.Intent;
 
-import org.json.JSONObject;
-
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static String ip;
 
@@ -39,29 +35,35 @@ public class Login extends AppCompatActivity {
                     String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
                     ip="79.178.101.120";
                     // Instantiate the RequestQueue.
-                    RequestQueue queue = Volley.newRequestQueue(Login.this);
-                    String url = "http://" + ip + ":8080/Login?user=" + username + "&pass=" + password;
+                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                    String url = "http://" + ip + ":8080/LoginActivity?user=" + username + "&pass=" + password;
 
+                    /*
+                    //TODO: uncomment to test without server
+                    Intent intent=new Intent(LoginActivity.this,MenuActivity.class);
+                    startActivity(intent);
+                    */
 
+                    //TODO: comment to test without server
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     if (response.equals("ok")) {
 
-                                        Intent intent=new Intent(Login.this,CameraActivity.class);
+                                        Intent intent=new Intent(LoginActivity.this,MenuActivity.class);
                                         intent.putExtra("Ip",ip);
                                         startActivity(intent);
 
                                     }
                                     else
-                                        Toast.makeText(Login.this, "UserName or Password or ip is kaka", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "UserName or Password or ip is kaka", Toast.LENGTH_LONG).show();
 
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(Login.this, "NOP!" + error, Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "NOP!" + error, Toast.LENGTH_LONG).show();
                         }
                     });
                     queue.add(stringRequest);
@@ -69,7 +71,7 @@ public class Login extends AppCompatActivity {
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(Login.this, "NOP!" + e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "NOP!" + e.toString(), Toast.LENGTH_LONG).show();
         }
 
 
