@@ -48,8 +48,7 @@ public class PatrolActivity extends AppCompatActivity {
         serverIp = "79.178.101.120";
 
         String url = "http://" + serverIp + ":8080/Map";
-        get(url);
-
+        getMap(url);
 
         findViewById(R.id.mapbtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +72,21 @@ public class PatrolActivity extends AppCompatActivity {
                 drawMap();
 
 
+            }
+        });
+
+        findViewById(R.id.savebtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String points=Login.ip+":8080/savpoints?";
+                for (int i=0;i<pointsFalg;i++)
+                {
+                    int x= clickpoints[i].x;
+                    int y= clickpoints[i].y;
+                    points+=Integer.toString(x)+Integer.toString(y)+":";
+                }
+
+                get(points);
             }
         });
 
@@ -128,7 +142,7 @@ public class PatrolActivity extends AppCompatActivity {
 
     }
 
-    public void get(String url) {
+    public void getMap(String url) {
         RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -137,13 +151,30 @@ public class PatrolActivity extends AppCompatActivity {
                         strMap = response.toString();
                         parseMap();
                         Toast.makeText(PatrolActivity.this, "Fetched!" , Toast.LENGTH_LONG).show();
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(stringRequest);
+
+    }
+
+    public void get(String url) {
+        RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(PatrolActivity.this, "New Patrol Successfully Saved." , Toast.LENGTH_LONG).show();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PatrolActivity.this, "Error!", Toast.LENGTH_LONG).show();
             }
         });
         queue.add(stringRequest);
