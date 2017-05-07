@@ -76,15 +76,15 @@ public class PatrolActivity extends AppCompatActivity {
         findViewById(R.id.savebtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String points=Login.ip+":8080/savpoints?";
+                String newPoints=LoginActivity.ip+":8080/savpoints?";
                 for (int i=0;i<pointsFalg;i++)
                 {
                     int x= clickpoints[i].x;
                     int y= clickpoints[i].y;
-                    points+=Integer.toString(x)+Integer.toString(y)+":";
+                    newPoints+=Integer.toString(x)+Integer.toString(y)+":";
                 }
 
-                get(points);
+                get(newPoints);
             }
         });
 
