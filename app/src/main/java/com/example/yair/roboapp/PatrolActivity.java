@@ -81,7 +81,7 @@ public class PatrolActivity extends AppCompatActivity {
                 {
                     int x= clickpoints[i].x;
                     int y= clickpoints[i].y;
-                    newPoints+=Integer.toString(x)+Integer.toString(y)+":";
+                    newPoints+=":"+Integer.toString(x)+Integer.toString(y);
                 }
 
                 get(newPoints);
@@ -137,6 +137,34 @@ public class PatrolActivity extends AppCompatActivity {
                 matrixMap[i][j] = value;
             }
         }
+
+
+        String url = "http://" + serverIp + ":8080/getpoints";
+
+        RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String points = response.toString();
+                        while (points.contains(":"))
+                        {
+                            points=points.substring(points.indexOf(":"+1),points.length());
+                            int x=Integer.parseInt(points.substring(0,1));
+                            int y=Integer.parseInt(points.substring(1,2));
+                            matrixMap[x][y]=0;
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(stringRequest);
+
+
 
     }
 
