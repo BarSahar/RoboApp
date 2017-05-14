@@ -30,7 +30,27 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        final String ip=getIntent().getStringExtra("Ip");
+        //final String ip=getIntent().getStringExtra("Ip");
+        final String ip= LoginActivity.ip;
+
+//        RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
+//        String req="http://"+ip+":8080/main";
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                        Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        queue.add(stringRequest);
 
         findViewById(R.id.Lbutton).setOnClickListener(new View.OnClickListener(){
 
@@ -117,7 +137,7 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
         //Utils.loadData();
 
         // get the camera object
-        camera = new Camera(Source.ConnectionType.RawTcpIp,"","79.178.101.120",8080);
+        camera = new Camera(Source.ConnectionType.RawTcpIp,"",ip,5001);
 
         //camera.name = "camera";
 

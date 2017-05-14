@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                     ip = ((EditText) findViewById(R.id.ipbox)).getText().toString();
                     String username = ((EditText) findViewById(R.id.usernamebox)).getText().toString();
                     String password = ((EditText) findViewById(R.id.passwordbox)).getText().toString();
-                    ip="79.178.101.120";
+//                    ip="79.178.101.120";
                     // Instantiate the RequestQueue.
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     String url = "http://" + ip + ":8080/LoginActivity?user=" + username + "&pass=" + password;
