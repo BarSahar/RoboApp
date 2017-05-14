@@ -33,24 +33,24 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
         //final String ip=getIntent().getStringExtra("Ip");
         final String ip= LoginActivity.ip;
 
-//        RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
-//        String req="http://"+ip+":8080/main";
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//
-//                        Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        queue.add(stringRequest);
+        RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
+        String req="http://"+ip+":8080/main";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(stringRequest);
 
         findViewById(R.id.Lbutton).setOnClickListener(new View.OnClickListener(){
 

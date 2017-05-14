@@ -33,8 +33,7 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        //final String ip = LoginActivity.ip;
-        final String ip = "79.178.101.120";
+        final String ip = LoginActivity.ip;
         FloatingActionButton syncButton = (FloatingActionButton)findViewById(R.id.getPics);
 
         adapter = new ImageList(PhotoActivity.this,images);

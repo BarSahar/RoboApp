@@ -43,7 +43,6 @@ public class PatrolActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patrol);
         serverIp = LoginActivity.ip;
-        serverIp = "79.178.101.120";
 
         String url = "http://" + serverIp + ":8080/Map";
         getMap(url);
@@ -81,10 +80,10 @@ public class PatrolActivity extends AppCompatActivity {
                 {
                     int x= clickpoints[i].x;
                     int y= clickpoints[i].y;
-                    newPoints+=":"+Integer.toString(x)+Integer.toString(y);
+                    newPoints+=":"+Integer.toString(x)+','+Integer.toString(y)+'~';
                 }
 
-                get(newPoints);
+                get("http://"+newPoints);
             }
         });
 
@@ -149,11 +148,12 @@ public class PatrolActivity extends AppCompatActivity {
                         String points = response.toString();
                         while (points.contains(":"))
                         {
-                            points=points.substring(points.indexOf(":"+1),points.length());
-                            int x=Integer.parseInt(points.substring(0,1));
-                            int y=Integer.parseInt(points.substring(1,2));
+                            points=points.substring(points.indexOf(":")+1,points.length());
+                            int x=Integer.parseInt(points.substring(0,points.indexOf(",")));
+                            int y=Integer.parseInt(points.substring(points.indexOf(",")+1,points.indexOf("~")));
                             matrixMap[x][y]=0;
                         }
+                        drawMap();
 
                     }
                 }, new Response.ErrorListener() {
@@ -175,8 +175,7 @@ public class PatrolActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         strMap = response.toString();
-                        parseMap();
-                        Toast.makeText(PatrolActivity.this, "Fetched!" , Toast.LENGTH_LONG).show();
+                        parseMap(); //also draws map after parse
                     }
                 }, new Response.ErrorListener() {
             @Override
