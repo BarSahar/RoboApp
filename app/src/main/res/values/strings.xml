@@ -55,4 +55,8 @@
     <string name="live_camera">Live Camera</string>
     <string name="patrol_setup">Patrol Setup</string>
     <string name="photos_from_patrol">Photos from patrol</string>
+    <string name="clear_selection">Clear Selection</string>
+    <string name="get_map">Get Map</string>
+    <string name="save">Save</string>
+    <string name="start_patrol_at">Start Patrol At:</string>
 </resources>

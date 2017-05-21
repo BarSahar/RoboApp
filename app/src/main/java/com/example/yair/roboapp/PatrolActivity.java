@@ -67,8 +67,48 @@ public class PatrolActivity extends AppCompatActivity {
 
                 pointsFalg=0;
                 drawMap();
+            }
+        });
 
+        findViewById(R.id.patrolBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://" + serverIp + ":8080/startPatrol";
+                RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(PatrolActivity.this, "Patrol Running!", Toast.LENGTH_LONG).show();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+                    }
+                });
+                queue.add(stringRequest);
+            }
+        });
 
+        findViewById(R.id.patrolBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://" + serverIp + ":8080/startDemo";
+                RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(PatrolActivity.this, "Patrol Running!", Toast.LENGTH_LONG).show();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+                    }
+                });
+                queue.add(stringRequest);
             }
         });
 
@@ -174,8 +214,13 @@ public class PatrolActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        strMap = response.toString();
-                        parseMap(); //also draws map after parse
+                        if (response.equals("False")){
+                            Toast.makeText(PatrolActivity.this, "No map to display!", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            strMap = response.toString();
+                            parseMap(); //also draws map after parse
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
