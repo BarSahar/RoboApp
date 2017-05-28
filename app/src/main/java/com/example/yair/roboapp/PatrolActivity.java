@@ -28,6 +28,7 @@ public class PatrolActivity extends AppCompatActivity {
     public int[][] matrixMap;
 
     public int pointsFalg=0;
+    public int oldLength=0;
     public clickPoint[] clickpoints;
     public int rows;
     public int cols;
@@ -91,38 +92,15 @@ public class PatrolActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.patrolBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "http://" + serverIp + ":8080/startDemo";
-                RequestQueue queue=Volley.newRequestQueue(PatrolActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(PatrolActivity.this, "Patrol Running!", Toast.LENGTH_LONG).show();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
-                    }
-                });
-                queue.add(stringRequest);
-            }
-        });
-
         findViewById(R.id.savebtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newPoints=LoginActivity.ip+":8080/savpoints?";
-                for (int i=0;i<pointsFalg;i++)
-                {
+                for (int i=0;i<pointsFalg;i++) {
                     int x= clickpoints[i].x;
                     int y= clickpoints[i].y;
                     newPoints+=":"+Integer.toString(x)+','+Integer.toString(y)+'~';
                 }
-
                 get("http://"+newPoints);
             }
         });

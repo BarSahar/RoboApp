@@ -59,4 +59,5 @@
     <string name="get_map">Get Map</string>
     <string name="save">Save</string>
     <string name="start_patrol_at">Start Patrol At:</string>
+    <string name="start_partol">Start Partol</string>
 </resources>
