@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/cameraBut"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -21,6 +22,7 @@
 
     <Button
         android:id="@+id/patrolBut"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -33,6 +35,7 @@
 
     <Button
         android:id="@+id/photoBut"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -45,6 +48,7 @@
 
     <Button
         android:id="@+id/aboutBut"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
