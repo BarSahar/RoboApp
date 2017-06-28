@@ -85,7 +85,8 @@ public class PatrolActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+                        //For debugging only
+                        //Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
                     }
                 });
                 queue.add(stringRequest);
@@ -177,7 +178,8 @@ public class PatrolActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
             }
         });
         queue.add(stringRequest);
@@ -203,7 +205,8 @@ public class PatrolActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(PatrolActivity.this, "Error!" + error, Toast.LENGTH_LONG).show();
             }
         });
         queue.add(stringRequest);
@@ -217,12 +220,12 @@ public class PatrolActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(PatrolActivity.this, "New Patrol Successfully Saved." , Toast.LENGTH_LONG).show();
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PatrolActivity.this, "Error!", Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(PatrolActivity.this, "Error!", Toast.LENGTH_LONG).show();
             }
         });
         queue.add(stringRequest);

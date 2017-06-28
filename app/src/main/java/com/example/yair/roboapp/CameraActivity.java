@@ -22,6 +22,7 @@ import com.example.yair.roboapp.classes.Camera;
 
 public class CameraActivity  extends AppCompatActivity implements VideoFragment.OnFadeListener{
     public final static String CAMERA = "camera";
+    public int counter=0;
     private final static String TAG = "VideoActivity";
     private Camera camera;
     private FrameLayout frameLayout;
@@ -30,7 +31,6 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        //final String ip=getIntent().getStringExtra("Ip");
         final String ip= LoginActivity.ip;
 
         RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
@@ -40,39 +40,40 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
-                        Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
-
+                        //For debugging only
+                        //Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
             }
         });
         queue.add(stringRequest);
-
         findViewById(R.id.Lbutton).setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
                 RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
                 String req="http://"+ip+":8080/Left";
-
+                counter++;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
-                                Toast.makeText(CameraActivity.this, "=)", Toast.LENGTH_LONG).show();
+                                //For debugging only
+                                //Toast.makeText(CameraActivity.this, "=)", Toast.LENGTH_LONG).show();
 
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                        //For debugging only
+                        //Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
                     }
                 });
                 queue.add(stringRequest);
@@ -81,8 +82,8 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
         findViewById(R.id.Fbutton).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
                 RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
                 String req="http://"+ip+":8080/Forward";
 
@@ -90,14 +91,15 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
-                                Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
+                                //For debugging only
+                                //Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
 
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                        //For debugging only
+                        //Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
                     }
                 });
                 queue.add(stringRequest);
@@ -107,8 +109,8 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
         findViewById(R.id.Rbutton).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
+                //For debugging only
+                //Toast.makeText(CameraActivity.this, "Ip: "+ip , Toast.LENGTH_LONG).show();
                 RequestQueue queue = Volley.newRequestQueue(CameraActivity.this);
                 String req="http://"+ip+":8080/Right";
 
@@ -116,30 +118,24 @@ public class CameraActivity  extends AppCompatActivity implements VideoFragment.
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
-                                Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
+                                //For debugging only
+                                //Toast.makeText(CameraActivity.this, response, Toast.LENGTH_LONG).show();
 
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                        //For debugging only
+                        //Toast.makeText(CameraActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
                     }
                 });
                 queue.add(stringRequest);
-
             }
         });
 
-        //Log.d(TAG, "onCreate");
-
-        // load the settings and cameras
-        //Utils.loadData();
 
         // get the camera object
         camera = new Camera(Source.ConnectionType.RawTcpIp,"",ip,5001);
-
-        //camera.name = "camera";
 
         // get the frame layout, handle system visibility changes
         frameLayout = (FrameLayout) findViewById(R.id.video);

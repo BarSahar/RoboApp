@@ -56,14 +56,15 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
 
                                     }
-                                    else
-                                        Toast.makeText(LoginActivity.this, "UserName or Password or ip is kaka", Toast.LENGTH_LONG).show();
-
+                                    else {
+                                        Toast.makeText(LoginActivity.this, "UserName or Password or ip are invalid", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(LoginActivity.this, "NOP!" + error, Toast.LENGTH_LONG).show();
+                            //For debugging only
+                            //Toast.makeText(LoginActivity.this, "NOP!" + error, Toast.LENGTH_LONG).show();
                         }
                     });
                     queue.add(stringRequest);
@@ -71,7 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(LoginActivity.this, "NOP!" + e.toString(), Toast.LENGTH_LONG).show();
+            //For debugging only
+            //Toast.makeText(LoginActivity.this, "NOP!" + e.toString(), Toast.LENGTH_LONG).show();
         }
 
 

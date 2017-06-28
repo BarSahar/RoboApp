@@ -77,7 +77,8 @@ public class PhotoActivity extends AppCompatActivity {
                                             }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(PhotoActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                                            //For debugging only
+                                            //Toast.makeText(PhotoActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
                                         }
                                     });
                                     queue.add(stringRequest);
@@ -86,32 +87,11 @@ public class PhotoActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(PhotoActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
+                        //For debugging only
+                        //Toast.makeText(PhotoActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
                     }
                 });
                 queue.add(stringRequest);
-                //request 2
-                /*String req="http://"+ip+":8080/getPic0";
-
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-
-                                byte[] decodedByte = Base64.decode(response, Base64.DEFAULT);
-                                Bitmap decodedImg = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-                                ImageView img = (ImageView)findViewById(R.id.imageView);
-                                img.setImageBitmap(decodedImg);
-                                Bitmap huhuhuhu = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-                                //ListView lv = (ListView)findViewById(R.id.picList).add
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(PhotoActivity.this, "Bad Api: " + error, Toast.LENGTH_LONG).show();
-                    }
-                });
-                queue.add(stringRequest);*/
             }
         });
     }
